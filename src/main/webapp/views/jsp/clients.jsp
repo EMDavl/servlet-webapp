@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -37,13 +39,5 @@
         </div>
     </div>
 </main>
-<script type="text/javascript">
-    var clientBlocks = document.getElementsByClassName('client_block');
-    for (let i = 0; i < clientBlocks.length; i++) {
-        clientBlocks[i].addEventListener('click', () => {
-
-        })
-    }
-</script>
 </body>
 </html>

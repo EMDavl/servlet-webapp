@@ -34,6 +34,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         SignUpForm form = SignUpForm.getFormFromRequest(req);
+
         if (signUpService.isValidEmail(form.getEmail())){
             signUpService.signUp(form);
             resp.sendRedirect("/semwork/sign-in");
