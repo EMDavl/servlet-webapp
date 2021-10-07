@@ -1,14 +1,33 @@
 package ru.itis.services;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignUpForm;
 import ru.itis.repositories.SignUpRepository;
-import ru.itis.repositories.SignUpRepositoryImpl;
+
 
 public class SignUpServiceImpl implements SignUpService {
     private SignUpRepository repository;
+    private PasswordEncoder passwordEncoder;
 
-    public SignUpServiceImpl(SignUpRepository repository) {
+    public SignUpServiceImpl(SignUpRepository repository,
+                             PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+    @Override
+    public boolean isValidEmail(String email) {
+        return repository.isUniqueEmail(email);
+    }
+
+    @Override
+    public boolean signUp(SignUpForm form) {
+        if(!isValidEmail(form.getEmail())) return false;
+        repository.signUp(form.getEmail(),
+                form.getName(),
+                form.getSurname(),
+                passwordEncoder.encode(form.getPassword()));
+        return true;
     }
 
     public SignUpRepository getRepository() {
@@ -19,13 +38,11 @@ public class SignUpServiceImpl implements SignUpService {
         this.repository = repository;
     }
 
-    @Override
-    public boolean isValidEmail(String email) {
-        return repository.isUniqueEmail(email);
+    public PasswordEncoder getPasswordEncoder() {
+        return passwordEncoder;
     }
 
-    @Override
-    public void signUp(SignUpForm form) {
-        repository.signUp(form.getEmail(), form.getName(), form.getSurname(), form.getPassword());
+    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+        this.passwordEncoder = passwordEncoder;
     }
 }

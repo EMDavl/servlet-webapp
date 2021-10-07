@@ -1,5 +1,6 @@
 package ru.itis.listeners;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ru.itis.repositories.*;
 import ru.itis.utils.ConnectionManager;
 
@@ -30,6 +31,9 @@ public class ServletListener implements ServletContextListener {
 
         servletContext.setAttribute("clientsRepo",
                 new ClientsRepositoryImpl(ConnectionManager.getConnection()));
+
+        servletContext.setAttribute("passwordEncoder",
+                new BCryptPasswordEncoder());
     }
 
     @Override

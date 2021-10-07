@@ -6,9 +6,11 @@ public class SignUpRepositoryImpl implements SignUpRepository{
     private Connection connection;
 
     //language = SQL
-    private String SQL_IS_UNIQUE_VALUES = "SELECT * FROM users WHERE LOWER(email)=LOWER(?)";
+    private String SQL_IS_UNIQUE_EMAIL =
+            "SELECT * FROM users WHERE LOWER(email)=LOWER(?)";
     //language = SQL
-    private String SQL_CREATE_USER = "INSERT INTO users(email, name, surname, hash_pass) VALUES(?, ?, ?, ?)";
+    private String SQL_CREATE_USER =
+            "INSERT INTO users(email, name, surname, hash_pass) VALUES(?, ?, ?, ?)";
 
 
     public SignUpRepositoryImpl(Connection connection) {
@@ -20,14 +22,15 @@ public class SignUpRepositoryImpl implements SignUpRepository{
     @Override
     public boolean isUniqueEmail(String email) {
         try {
-            PreparedStatement statement = connection.prepareStatement(SQL_IS_UNIQUE_VALUES);
+            PreparedStatement statement = connection.prepareStatement(SQL_IS_UNIQUE_EMAIL);
             statement.setString(1, email);
-            ResultSet resultSet = statement.executeQuery();
 
-            resultSet.next();
-            return resultSet.getString("email").isEmpty();
+            ResultSet emailResultSet = statement.executeQuery();
+
+            return !emailResultSet.next();
         } catch (SQLException e) {
-            throw new IllegalArgumentException(e);
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -42,8 +45,7 @@ public class SignUpRepositoryImpl implements SignUpRepository{
 
             statement.execute();
         } catch (SQLException e) {
-            throw new IllegalArgumentException(e);
+            e.printStackTrace();
         }
     }
-
 }
