@@ -41,5 +41,4 @@ public class ServletListener implements ServletContextListener {
         ConnectionManager.closeConnections();
     }
 
-
 }

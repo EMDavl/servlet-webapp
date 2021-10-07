@@ -36,6 +36,7 @@ public class SignUpServlet extends HttpServlet {
 
     // Мб вынести создание формы в отдельный метод или в класс формы
     @Override
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 

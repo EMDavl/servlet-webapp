@@ -17,6 +17,7 @@ public class ProfileServlet extends HttpServlet {
                 "em@ya.ru", 3, 2);
 
         req.setAttribute("user", um);
+
         req.getRequestDispatcher("/views/jsp/profile.jsp")
                 .forward(req, resp);
     }
