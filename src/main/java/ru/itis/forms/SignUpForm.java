@@ -1,8 +1,5 @@
 package ru.itis.forms;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import javax.servlet.http.HttpServletRequest;
 
 public class SignUpForm {
 
@@ -10,16 +7,6 @@ public class SignUpForm {
     private String surname;
     private String email;
     private String password;
-
-    public static SignUpForm getFormFromRequest(HttpServletRequest req){
-        String name = req.getParameter("name");
-        String surname = req.getParameter("surname");
-        String email = req.getParameter("email");
-        String password = new BCryptPasswordEncoder()
-                .encode(req.getParameter("password"));
-
-        return new SignUpForm(name, surname, email, password);
-    }
 
     public SignUpForm(String name, String surname, String email, String password) {
         this.name = name;

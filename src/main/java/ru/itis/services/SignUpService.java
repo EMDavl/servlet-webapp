@@ -6,5 +6,5 @@ import javax.xml.ws.Service;
 
 public interface SignUpService {
     boolean isValidEmail(String email);
-    void signUp(SignUpForm form);
+    boolean signUp(SignUpForm form);
 }

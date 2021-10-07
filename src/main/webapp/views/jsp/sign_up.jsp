@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,14 +22,14 @@
         <div class="row">
             <h1 class="col">Your CRM</h1>
             <a href="/welcome" class="col">About us</a>
-            <a href="/sign_in" class="col">Sign in</a>
+            <a href="/sign-in" class="col">Sign in</a>
         </div>
     </div>
 </header>
 <main class="sign_main">
     <div class="wrapper">
         <div class="sign_in_form">
-            <form action="/sign_up" method="post" onsubmit="return validateForm()">
+            <form action="/sign-up" method="post" onsubmit="return validateForm()">
                 <div class="sign_in_form--block">
                     <label for="email">Введите email: </label>
                     <input type="text" name="email" placeholder ="email" id="email" onblur="validateEmail()" required>
@@ -59,7 +61,7 @@
                 </div>
 
                 <div class="sign_in_form--btn">
-                    <input type="submit" name="subm" value="sign in" id="submit">
+                    <input type="submit" name="subm" value="sign up" id="submit">
                 </div>
             </form>
 

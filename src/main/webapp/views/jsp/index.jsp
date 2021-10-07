@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="false" %>
+
 <html>
 <head>
     <meta charset="utf-8">
@@ -20,7 +22,7 @@
         <div class="row">
             <h1 class="col">Your CRM</h1>
             <a href="/welcome" class="col">About us</a>
-            <a href="/sign_in" class="col">Sign in</a>
+            <a href="/sign-in" class="col">Sign in</a>
         </div>
     </div>
 </header>

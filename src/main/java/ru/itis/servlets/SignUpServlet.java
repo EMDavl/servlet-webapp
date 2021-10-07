@@ -1,5 +1,6 @@
 package ru.itis.servlets;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignUpForm;
 import ru.itis.repositories.SignUpRepository;
 import ru.itis.services.SignUpService;
@@ -23,23 +24,34 @@ public class SignUpServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
         this.signUpService = new SignUpServiceImpl(
-                (SignUpRepository) context.getAttribute("signUpRepo"));
+                (SignUpRepository) context.getAttribute("signUpRepo"),
+                (PasswordEncoder) context.getAttribute("passwordEncoder"));
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         req.getRequestDispatcher("/views/jsp/sign_up.jsp").forward(req, resp);
     }
 
+    // Мб вынести создание формы в отдельный метод или в класс формы
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        SignUpForm form = SignUpForm.getFormFromRequest(req);
-        if (signUpService.isValidEmail(form.getEmail())){
-            signUpService.signUp(form);
-            resp.sendRedirect("/semwork/sign-in");
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+
+        SignUpForm form = new SignUpForm(
+                req.getParameter("name"),
+                req.getParameter("surname"),
+                req.getParameter("email"),
+                req.getParameter("password")
+        );
+
+        if (signUpService.signUp(form)){
+            resp.sendRedirect("/sign-in");
             return;
         }
 
-        resp.sendRedirect("/semwork/sign-up");
+        req.setAttribute("error", true);
+        req.getRequestDispatcher("/views/jsp/sign_up.jsp").forward(req, resp);
     }
 }
