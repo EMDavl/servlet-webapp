@@ -1,0 +1,316 @@
+header{
+	background-color: #4b9beb;
+}
+
+*{
+	font-family: consolas;
+}
+
+body{
+	margin: 0;
+}
+
+.header_wrapper{
+	max-width: 1280px;
+	margin: 0 auto;
+	color: white;
+	padding:0 40px;
+}
+
+.header_wrapper a{
+	text-decoration: none;
+	color: white;
+}
+
+.row{
+	margin: 0 -10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.col{
+	margin-left: 10px;
+	margin-right: 10px;
+	box-sizing: border-box;
+}
+
+.sign_main{
+	text-align: center;
+}
+
+.wrapper{
+	background-color: #A0B9D6;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding-bottom: 40px;
+}
+
+.blocks{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.block_item{
+	width: calc(100%/2 - 80px);
+	margin: 40px;
+	box-sizing: border-box;
+	padding: 20px;
+	background-color: #C4C4C4;
+	border-radius: 20px;
+}
+
+.main_header{
+	padding: 30px;
+	vertical-align: middle;
+}
+
+.sign_in_form{
+	padding: 30px;
+	font-size: 18px;
+	text-align: center;
+}
+
+.sign_in_form--block{
+	margin: 45px auto;
+	border-radius: 20px;
+	background-color: #c4c4c4;
+	max-width: calc(100%/2 - 90px);
+	box-sizing: border-box;
+	padding: 20px 30px;
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.sign_in_form--block input{
+	border-radius:15px;
+	padding: 10px;
+	border-width: 1px;
+}
+
+.sign_in_form--btn input{
+	background-color: #c4c4c4;
+	border-radius: 20px;
+	padding: 10px;
+	font-size: 16px;
+	border: 1px solid;
+	cursor: pointer;
+}
+
+.sign_in_form--btn input:active{
+	background-color: #9f9f9f;
+}
+
+.sign_main p{
+	margin-bottom: 10px;
+}
+
+.profile_wrapper{
+	background-color: #A0B9D6;
+	max-width: 1180px;
+	margin: 0 auto;
+	padding: 100px;
+	box-sizing: border-box;
+}
+
+.profile_content{
+	display: flex;
+	flex-wrap: wrap;
+	box-sizing: border-box;
+	justify-content: space-between;
+	margin: 30px;
+	padding: 0 50px;
+	background-color: #c4c4c4;
+	border-radius: 30px;
+}
+
+#profile_content_info > p{
+	font-size: 26px;
+	font-weight: bold;
+}
+
+.profile_content_info-elem-title{
+	color: #474747;
+	font-size: 14px;
+	margin: 0 auto;
+}
+
+.profile_content_info-elem-value{
+	font-size: 18px;
+	margin-top: 5px;
+	margin-bottom: 40px;
+}
+
+.edit{
+	text-decoration: none;
+	color: #000;
+	font-size: 18px;
+	padding: 5px 30px;
+	background-color: #A0B9D6;
+	border-radius: 20px;
+	max-height: 30px;
+	cursor: pointer;
+	margin: 30px;
+	user-select: none;
+}
+
+.edit:active{
+	background-color: #5192dd;
+}
+
+.message{
+	font-size: 14px;
+	color: darkred;
+	display: block;
+	margin-top: 10px;
+}
+
+.tasks{
+	padding: 30px 20px;
+}
+
+.task_block{
+	text-align: center;
+	padding: 10px;
+	background-color: #c4c4c4;
+	border-radius: 40px;
+	box-sizing: border-box;
+	max-height: 10%;
+	margin: 20px;
+}
+
+.task_header{
+	font-size: 22px;
+	font-weight: bold;
+}
+
+.task_description{
+	padding:0 20px;
+}
+
+@media screen and (max-height: 770px){
+	.wrapper{
+		padding-bottom: 20px;
+	}
+}
+
+.add_task_button{
+	outline: none;
+	border: none;
+	background-color: transparent;
+	color: white;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.modal {
+	position: absolute;
+	visibility: hidden;
+	opacity: 0;
+	transition: .3s;
+	top: -1000px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 1000;
+	background: rgba(0, 0, 0, 0.9);
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	overflow-y: scroll;
+	padding: 60px 15px;
+}
+
+.modal_active {
+	position: fixed;
+	top: 0;
+	visibility: visible;
+	opacity: 1;
+	transition: .3s;
+}
+
+.modal_content {
+	width: 100%;
+	max-width: 500px;
+	padding: 50px;
+	background: #c4c4c4;
+	border-radius: 20px;
+	position: relative;
+	box-shadow: 0 5px 15px black;
+	text-align: center;
+}
+
+.hidden{
+	overflow: hidden;
+}
+
+.add_task_block{
+	margin: 20px;
+	border-radius: 20px;
+	font-size: 16px;
+}
+.add_task_block input{
+	border-radius: 20px;
+}
+
+.add_task_description textarea{
+	resize: none;
+	height: 200px;
+	width: 300px;
+}
+
+.client_button{
+	color: black;
+	border: none;
+	outline: none;
+	cursor: pointer;
+	font-size: 16px;
+	background-color: transparent;
+}
+
+.edit_button{
+	background-color: #A0B9D6;
+	border-radius: 20px;
+}
+
+.delete_button{
+	background-color: red;
+	border-radius: 20px;
+}
+
+.delete_button:active{
+	background-color: darkred;
+}
+
+.clients_blocks{
+	padding: 30px;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 0 30px;
+	justify-content: space-evenly;
+	height: 80%;
+}
+
+.client_block{
+	background-color: #c4c4c4;
+	border-radius: 20px;
+	width: calc(100%/3 - 40px);
+	height: 150px;
+	margin: 20px;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.client_block--name{
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.client_link{
+	text-decoration: none;
+	color: black;
+}
