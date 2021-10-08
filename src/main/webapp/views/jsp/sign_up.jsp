@@ -48,7 +48,13 @@
 
                 <div class="sign_in_form--block">
                     <label for="password">Введите пароль: </label>
-                    <input type="password" name="password" placeholder ="password" id="password" onkeyup='checkPasswordConfirmation();' required>
+                    <input type="password"
+                           name="password"
+                           placeholder ="password"
+                           id="password"
+                           onkeyup='checkPasswordConfirmation();'
+                           minlength = 8
+                           required>
                 </div>
 
                 <div class="sign_in_form--block">
