@@ -21,7 +21,7 @@ public class ServletListener implements ServletContextListener {
                 new SignUpRepositoryImpl(ConnectionManager.getConnection()));
 
         servletContext.setAttribute("userRepo",
-                new UsersRepositoryImpl(ConnectionManager.getConnection()));
+                new ProfileRepositoryImpl(ConnectionManager.getConnection()));
 
         servletContext.setAttribute("tasksRepo",
                 new TasksRepositoryImpl(ConnectionManager.getConnection()));
@@ -34,6 +34,9 @@ public class ServletListener implements ServletContextListener {
 
         servletContext.setAttribute("passwordEncoder",
                 new BCryptPasswordEncoder());
+
+        servletContext.setAttribute("profileRepo",
+                new ProfileRepositoryImpl(ConnectionManager.getConnection()));
     }
 
     @Override
