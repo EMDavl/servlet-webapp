@@ -32,26 +32,33 @@
     <div class="profile_wrapper">
         <div class="profile_content">
             <div id="profile_content_info">
-                <p>${user.getFullName()}</p>
+                <p>${user.fullName}</p>
                 <div class="profile_content_info-elem">
                     <p class="profile_content_info-elem-title">email</p>
-                    <p class="profile_content_info-elem-value">${user.getEmail()}</p>
+                    <p class="profile_content_info-elem-value">${user.email}</p>
                 </div>
                 <div class="profile_content_info-elem">
                     <p class="profile_content_info-elem-title">clients now</p>
-                    <p class="profile_content_info-elem-value">${user.getClientsNow()}</p>
+                    <p class="profile_content_info-elem-value">${user.clientsNow}</p>
                 </div>
                 <div class="profile_content_info-elem">
                     <p class="profile_content_info-elem-title">tasks now</p>
-                    <p class="profile_content_info-elem-value">${user.getTasksNow()}</p>
+                    <p class="profile_content_info-elem-value">${user.tasksNow}</p>
                 </div>
             </div>
-            <a class="edit">edit</a>
-            <form action="/logout" method="post">
-                <input type="submit" value="logout">
-            </form>
+            <div class="profile_buttons">
+                <button class="button blue_btn" id='edit_btn'>Edit profile</button>
+                <form action="/logout" method="post">
+                    <input type="submit" name="submit" value="Logout" class="button red_btn">
+                </form>
+            </div>
         </div>
     </div>
 </main>
+<script type="text/javascript">
+    document.getElementById('edit_btn').onclick = function (){
+        location.href = '/edit-profile';
+    };
+</script>
 </body>
 </html>

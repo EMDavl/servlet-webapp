@@ -314,3 +314,36 @@ body{
 	text-decoration: none;
 	color: black;
 }
+
+
+.profile_buttons{
+	margin-right: 20px;
+	text-align: center;
+	font-size: 0;
+}
+
+.button{
+	border: none;
+	background-color: transparent;
+	color: black;
+	margin: 26px 0;
+	padding: 10px 20px;
+	border-radius: 20px;
+	font-size: 16px;
+}
+
+.blue_btn{
+	background-color: #A0B9D6;
+}
+
+.blue_btn:active{
+	background-color: #4297f9;
+}
+
+.red_btn{
+	background-color: #fc5353;
+}
+
+.red_btn:active{
+	background-color: #bf0000;
+}
