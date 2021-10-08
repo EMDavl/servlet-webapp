@@ -47,5 +47,8 @@
         <a href="/sign-up">Sign up!</a>
     </div>
 </main>
+<c:if test="${error}">
+    <script type="text/javascript">alert("Wrong email or password")</script>
+</c:if>
 </body>
 </html>

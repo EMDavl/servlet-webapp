@@ -47,6 +47,9 @@
                 </div>
             </div>
             <a class="edit">edit</a>
+            <form action="/logout" method="post">
+                <input type="submit" value="logout">
+            </form>
         </div>
     </div>
 </main>
