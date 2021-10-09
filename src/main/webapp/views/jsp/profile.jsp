@@ -13,7 +13,6 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta lang="en">
     <link rel="stylesheet" type="text/css" href="<c:url value="/views/css/styles.css"/>">
     <title>Profile</title>
 </head>

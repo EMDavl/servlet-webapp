@@ -2,16 +2,16 @@ package ru.itis.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignInForm;
-import ru.itis.repositories.SignInRepository;
+import ru.itis.repositories.ProfileRepository;
 
 import javax.servlet.http.HttpSession;
 
 public class SignInServiceImpl implements SignInService {
 
-    private SignInRepository repository;
+    private ProfileRepository repository;
     private PasswordEncoder passwordEncoder;
 
-    public SignInServiceImpl(SignInRepository repository,
+    public SignInServiceImpl(ProfileRepository repository,
                              PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
