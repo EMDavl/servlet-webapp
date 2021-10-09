@@ -2,7 +2,7 @@ package ru.itis.servlets;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignInForm;
-import ru.itis.repositories.SignInRepository;
+import ru.itis.repositories.ProfileRepository;
 import ru.itis.services.SignInService;
 import ru.itis.services.SignInServiceImpl;
 
@@ -23,7 +23,7 @@ public class SignInServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
         service = new SignInServiceImpl(
-                (SignInRepository) context.getAttribute("signInRepo"),
+                (ProfileRepository) context.getAttribute("profileRepo"),
                 (PasswordEncoder) context.getAttribute("passwordEncoder")
         );
     }

@@ -2,14 +2,14 @@ package ru.itis.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignUpForm;
-import ru.itis.repositories.SignUpRepository;
+import ru.itis.repositories.ProfileRepository;
 
 
 public class SignUpServiceImpl implements SignUpService {
-    private SignUpRepository repository;
+    private ProfileRepository repository;
     private PasswordEncoder passwordEncoder;
 
-    public SignUpServiceImpl(SignUpRepository repository,
+    public SignUpServiceImpl(ProfileRepository repository,
                              PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
@@ -28,14 +28,6 @@ public class SignUpServiceImpl implements SignUpService {
                 form.getSurname(),
                 passwordEncoder.encode(form.getPassword()));
         return true;
-    }
-
-    public SignUpRepository getRepository() {
-        return repository;
-    }
-
-    public void setRepository(SignUpRepository repository) {
-        this.repository = repository;
     }
 
     public PasswordEncoder getPasswordEncoder() {

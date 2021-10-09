@@ -145,22 +145,6 @@ body{
 	margin-bottom: 40px;
 }
 
-.edit{
-	text-decoration: none;
-	color: #000;
-	font-size: 18px;
-	padding: 5px 30px;
-	background-color: #A0B9D6;
-	border-radius: 20px;
-	max-height: 30px;
-	cursor: pointer;
-	margin: 30px;
-	user-select: none;
-}
-
-.edit:active{
-	background-color: #5192dd;
-}
 
 .message{
 	font-size: 14px;
@@ -315,7 +299,6 @@ body{
 	color: black;
 }
 
-
 .profile_buttons{
 	margin-right: 20px;
 	text-align: center;
@@ -347,3 +330,40 @@ body{
 .red_btn:active{
 	background-color: #bf0000;
 }
+
+.change_form_field{
+	margin: 20px auto;
+	font-size: 18px;
+	display: block;
+}
+.block_btn{
+	display: block;
+}
+.secret{
+	display: none;
+}
+
+.toast{
+	font-size: 16px;
+	border: 1px solid rgba(0, 0, 0, 0.05);
+	background-color: #9f9f9f;
+	color: #000;
+	border-radius: 20px;
+	display: none;
+	position: relative;
+	overflow: hidden;
+	margin: 10px;
+	padding: 10px;
+}
+
+.toast_visible{
+	display: block;
+}
+
+.toast_block{
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	width: 270px;
+}
+
