@@ -22,9 +22,7 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
-        profileService = new ProfileEditServiceImpl(
-                (PasswordEncoder) context.getAttribute("passwordEncoder"),
-                (ProfileRepository) context.getAttribute("profileRepo"));
+        profileService = (ProfileEditService) context.getAttribute("profileEditService");
     }
 
     @Override

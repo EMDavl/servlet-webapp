@@ -3,6 +3,8 @@ package ru.itis.servlets;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.forms.SignUpForm;
 import ru.itis.repositories.ProfileRepository;
+import ru.itis.services.ProfileService;
+import ru.itis.services.SignInService;
 import ru.itis.services.SignUpService;
 import ru.itis.services.SignUpServiceImpl;
 
@@ -23,9 +25,7 @@ public class SignUpServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
-        this.signUpService = new SignUpServiceImpl(
-                (ProfileRepository) context.getAttribute("profileRepo"),
-                (PasswordEncoder) context.getAttribute("passwordEncoder"));
+        signUpService = (SignUpService) context.getAttribute("signUpService");
     }
 
     @Override

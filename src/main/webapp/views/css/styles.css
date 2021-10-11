@@ -45,6 +45,7 @@ body{
 	max-width: 1180px;
 	margin: 0 auto;
 	padding-bottom: 40px;
+	min-height: 720px;
 }
 
 .blocks{
@@ -174,6 +175,8 @@ body{
 
 .task_description{
 	padding:0 20px;
+	margin: 10px auto;
+	max-width: 70%;
 }
 
 @media screen and (max-height: 770px){
@@ -367,3 +370,6 @@ body{
 	width: 270px;
 }
 
+#members_date{
+	max-width: 60%;
+}

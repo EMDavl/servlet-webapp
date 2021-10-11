@@ -9,6 +9,6 @@ public interface ProfileRepository {
     boolean isUniqueEmail(String email);
     void signUp(String email, String name, String surname, String password);
     void updateEmail(String newEmail, String oldEmail);
-
+    int findIdByEmail(String email);
     void updatePassword(String encode, String email);
 }

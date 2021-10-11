@@ -22,8 +22,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         ServletContext context = config.getServletContext();
-        service = new ProfileServiceImpl(
-                (ProfileRepository) context.getAttribute("profileRepo"));
+        service = (ProfileService) context.getAttribute("profileService");
     }
 
     @Override

@@ -32,42 +32,16 @@
 <main>
     <div class="wrapper">
         <div class="tasks">
-            <div class="task_block">
-                <span class="task_header">Drink coffee</span>
+            <c:forEach items="${tasks}" var="task">
+                <div class="task_block">
+                    <span class="task_header">${task.taskName}</span>
 
-                <p class="task_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+                    <p class="task_description">${task.description}</p>
 
-                <span class="task_date">25.09.2021 14:00</span>
-            </div>
-            <div class="task_block">
-                <span class="task_header">Drink coffee</span>
-
-                <p class="task_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-
-                <span class="task_date">25.09.2021 14:00</span>
-            </div>
-            <div class="task_block">
-                <span class="task_header">Drink coffee</span>
-
-                <p class="task_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-
-                <span class="task_date">25.09.2021 14:00</span>
-            </div>
-            <div class="task_block">
-                <span class="task_header">Drink coffee</span>
-
-                <p class="task_description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                    exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-
-                <span class="task_date">25.09.2021 14:00</span>
-            </div>
+                    <div class="task_members">Members: ${task.membersCount}</div>
+                    <div class="task_date">Date and time: ${task.getFormattedDateTime()}</div>
+                </div>
+            </c:forEach>
         </div>
     </div>
 </main>
@@ -76,13 +50,15 @@
     <div class="modal_content">
         <form action="/add-task" method="post" id="add_task_form">
             <div class="add_task_name add_task_block">
-                <input type="text" name="task_name" placeholder="Task name">
+                <input type="text" name="taskName" placeholder="Task name" required>
             </div>
             <div class="add_task_date add_task_block">
-                <input type="date" name="task_date" id='add_task_date'>
+                <input type="date" name="taskDate" id='add_task_date' required>
+                <input type="time" name="taskTime" id='add_task_time' max="23:59" required>
+
             </div>
             <div class="add_task_description add_task_block">
-                <textarea name="task_description" placeholder="Task description" maxlength="600"></textarea>
+                <textarea name="taskDescription" placeholder="Task description" maxlength="600" required></textarea>
             </div>
             <input type="submit" name="submit" value="Add!" class="edit">
         </form>
@@ -106,22 +82,23 @@
         }
     };
 
-    function getToday() {
-        var today = new Date();
-        var dd = today.getDate();
-        var mm = today.getMonth() + 1;
-        var yyyy = today.getFullYear();
+    function getTomorrow() {
+        var tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        var dd = tomorrow.getDate();
+        var mm = tomorrow.getMonth() + 1;
+        var yyyy = tomorrow.getFullYear();
         if (dd < 10) {
             dd = '0' + dd
         }
         if (mm < 10) {
             mm = '0' + mm
         }
-        today = yyyy + '-' + mm + '-' + dd;
-        return today;
+        tomorrow = yyyy + '-' + mm + '-' + dd;
+        return tomorrow;
     }
 
-    document.getElementById("add_task_date").setAttribute("min", getToday());
+    document.getElementById("add_task_date").setAttribute("min", getTomorrow());
 </script>
 </body>
 </html>
