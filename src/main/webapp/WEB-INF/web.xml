@@ -9,4 +9,11 @@
         <welcome-file>/views/jsp/index.jsp</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>ru.itis.listeners.ServletListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>ru.itis.listeners.ScheduleListener</listener-class>
+    </listener>
+
 </web-app>

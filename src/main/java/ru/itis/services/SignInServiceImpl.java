@@ -31,6 +31,7 @@ public class SignInServiceImpl implements SignInService {
         }
 
         session.setAttribute("email", form.getEmail());
+        session.setAttribute("id", repository.findIdByEmail(form.getEmail()));
         session.setMaxInactiveInterval(30*60);
 
         return true;

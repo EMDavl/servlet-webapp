@@ -1,7 +1,9 @@
 package ru.itis.listeners;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.repositories.*;
+import ru.itis.services.*;
 import ru.itis.utils.ConnectionManager;
 
 import javax.servlet.ServletContext;
@@ -15,22 +17,49 @@ public class ServletListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        TasksRepository tasksRepository = new TasksRepositoryImpl(ConnectionManager.getConnection());
+        ProfileRepository profileRepository = new ProfileRepositoryImpl(ConnectionManager.getConnection());
+
         ServletContext servletContext = sce.getServletContext();
 
-        servletContext.setAttribute("userRepo",
-                new ProfileRepositoryImpl(ConnectionManager.getConnection()));
+        TaskService taskService = createTaskService(tasksRepository);
+        ProfileService profileService = createProfileService(profileRepository);
+        ProfileEditService profileEditService = createProfileEditService(profileRepository, passwordEncoder);
+        LogoutService logoutService = createLogoutService();
+        SignInService signInService = createSignInService(profileRepository, passwordEncoder);
+        SignUpService signUpService = createSignUpService(profileRepository, passwordEncoder);
 
-        servletContext.setAttribute("tasksRepo",
-                new TasksRepositoryImpl(ConnectionManager.getConnection()));
+        servletContext.setAttribute("taskService", taskService);
+        servletContext.setAttribute("profileService", profileService);
+        servletContext.setAttribute("profileEditService", profileEditService);
+        servletContext.setAttribute("logoutService", logoutService);
+        servletContext.setAttribute("signInService", signInService);
+        servletContext.setAttribute("signUpService", signUpService);
+    }
 
-        servletContext.setAttribute("clientsRepo",
-                new ClientsRepositoryImpl(ConnectionManager.getConnection()));
+    private ProfileEditService createProfileEditService(ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
+        return new ProfileEditServiceImpl(passwordEncoder, profileRepository);
+    }
 
-        servletContext.setAttribute("passwordEncoder",
-                new BCryptPasswordEncoder());
+    private SignUpService createSignUpService(ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
+        return new SignUpServiceImpl(profileRepository, passwordEncoder);
+    }
 
-        servletContext.setAttribute("profileRepo",
-                new ProfileRepositoryImpl(ConnectionManager.getConnection()));
+    private SignInService createSignInService(ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {
+        return new SignInServiceImpl(profileRepository, passwordEncoder);
+    }
+
+    private LogoutService createLogoutService() {
+        return new LogoutServiceImpl();
+    }
+
+    private ProfileService createProfileService(ProfileRepository repository) {
+        return new ProfileServiceImpl(repository);
+    }
+
+    private TaskService createTaskService(TasksRepository repository) {
+        return new TaskServiceImpl(repository);
     }
 
     @Override

@@ -35,6 +35,10 @@ public class ProfileRepositoryImpl implements ProfileRepository {
             "UPDATE users SET email=? WHERE email=?";
 
     //language = SQL
+    private String SQL_FIND_ID_BY_EMAIL =
+            "SELECT id FROM users WHERE email=?";
+
+    //language = SQL
     private String SQL_FIND_BY_EMAIL =
             "SELECT \n" +
                     "    \"email\",\n" +
@@ -131,6 +135,22 @@ public class ProfileRepositoryImpl implements ProfileRepository {
             statement.execute();
         }catch (SQLException e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public int findIdByEmail(String email) {
+        try{
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_ID_BY_EMAIL);
+            statement.setString(1, email);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+            return resultSet.getInt("id");
+
+        }catch (SQLException e){
+            e.printStackTrace();
+            return -1;
         }
     }
 
