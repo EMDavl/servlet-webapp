@@ -31,7 +31,7 @@
                 <input type="text"
                        name="email"
                        form="edit_profile"
-                       value="${user.email}"
+                       value="${email}"
                        class="change_form_field"
                        id="email">
 
@@ -71,14 +71,6 @@
             </div>
         </div>
     </div>
-    <div class="toast_block">
-        <div class="toast" id="mail_error">
-            Wrong email, please try again
-        </div>
-        <div class="toast" id="pass_error">
-            Wrong password, please try again
-        </div>
-    </div>
 </main>
 <script type="text/javascript">
     document.getElementById('cancel_btn').onclick = function (){
@@ -107,8 +99,9 @@
     }
 
     function isEmailValid(){
-        let mailformat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-        if(document.getElementById('email').value.match(mailformat)){
+        let mailFormat = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        let email = document.getElementById('email').value;
+        if(email.match(mailFormat) || email === ''){
             return true;
         }else{
             alert('Email isn\'t valid!')
@@ -116,28 +109,11 @@
         }
     }
 
-    function emailPopup(){
-        let emailToast = document.getElementById('mail_error');
-        emailToast.classList.add('toast_visible');
-        setTimeout(() => {
-            emailToast.classList.remove('toast_visible');
-        },1500)
-    }
-
-    function passwordPopup(){
-        let passwordToast = document.getElementById('mail_error');
-        passwordToast.classList.add('toast_visible');
-        setTimeout(() => {
-            passwordToast.classList.remove('toast_visible');
-        },1500)
-    }
-
-    <c:if test="emailError">
-        emailPopup();
+    <c:if test="${emailErr}">
+        alert("Email isn't unique, try another one")
     </c:if>
-
-    <c:if test="passwordError">
-        passwordPopup();
+    <c:if test="${passwordErr}">
+        alert("Old password doesn't matches")
     </c:if>
 </script>
 </body>

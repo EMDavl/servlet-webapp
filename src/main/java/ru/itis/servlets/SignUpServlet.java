@@ -31,12 +31,10 @@ public class SignUpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
-        req.getRequestDispatcher("/views/jsp/sign_up.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/jsp/sign_up.jsp").forward(req, resp);
     }
 
-    // Мб вынести создание формы в отдельный метод или в класс формы
     @Override
-
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
 
@@ -53,6 +51,6 @@ public class SignUpServlet extends HttpServlet {
         }
 
         req.setAttribute("error", true);
-        req.getRequestDispatcher("/views/jsp/sign_up.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/jsp/sign_up.jsp").forward(req, resp);
     }
 }

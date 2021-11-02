@@ -8,7 +8,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
-@WebFilter(urlPatterns = {"/profile", "/clients/*", "/tasks", "/logout", "/edit-profile"})
+@WebFilter(urlPatterns = {"/profile", "/clients/*", "/tasks", "/logout", "/edit-profile", "/shareClient"})
 public class NonAuthFilter implements Filter {
 
     @Override

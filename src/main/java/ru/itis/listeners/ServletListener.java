@@ -20,6 +20,7 @@ public class ServletListener implements ServletContextListener {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         TasksRepository tasksRepository = new TasksRepositoryImpl(ConnectionManager.getConnection());
         ProfileRepository profileRepository = new ProfileRepositoryImpl(ConnectionManager.getConnection());
+        ClientsRepository clientRepository = new ClientsRepositoryImpl(ConnectionManager.getConnection());
 
         ServletContext servletContext = sce.getServletContext();
 
@@ -29,13 +30,19 @@ public class ServletListener implements ServletContextListener {
         LogoutService logoutService = createLogoutService();
         SignInService signInService = createSignInService(profileRepository, passwordEncoder);
         SignUpService signUpService = createSignUpService(profileRepository, passwordEncoder);
+        ClientService clientService = createClientService(clientRepository);
 
         servletContext.setAttribute("taskService", taskService);
         servletContext.setAttribute("profileService", profileService);
         servletContext.setAttribute("profileEditService", profileEditService);
+        servletContext.setAttribute("clientService", clientService);
         servletContext.setAttribute("logoutService", logoutService);
         servletContext.setAttribute("signInService", signInService);
         servletContext.setAttribute("signUpService", signUpService);
+    }
+
+    private ClientService createClientService(ClientsRepository clientRepository) {
+        return new ClientServiceImpl(clientRepository);
     }
 
     private ProfileEditService createProfileEditService(ProfileRepository profileRepository, PasswordEncoder passwordEncoder) {

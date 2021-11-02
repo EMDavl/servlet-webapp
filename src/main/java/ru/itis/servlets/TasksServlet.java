@@ -30,7 +30,7 @@ public class TasksServlet extends HttpServlet {
 
         List<TaskModel> tasks = taskService.getTasks(req.getSession());
         req.setAttribute("tasks", tasks);
-        req.getRequestDispatcher("/views/jsp/tasks.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/jsp/tasks.jsp").forward(req, resp);
 
     }
 }

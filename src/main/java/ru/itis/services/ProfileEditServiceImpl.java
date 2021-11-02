@@ -17,30 +17,30 @@ public class ProfileEditServiceImpl implements ProfileEditService {
     }
 
     @Override
-    public boolean editEmail(String newEmail, HttpSession session) {
+    public boolean processEmail(String newEmail, HttpSession session) {
         String oldEmail = (String) session.getAttribute("email");
+
         if (oldEmail.equals(newEmail)) return true;
         if(!repository.isUniqueEmail(newEmail)) return false;
 
         repository.updateEmail(newEmail, oldEmail);
-        session.removeAttribute("email");
         session.setAttribute("email", newEmail);
 
         return true;
     }
 
     @Override
-    public boolean editPassword(String oldPassword,
-                                String newPassword,
-                                HttpSession session) {
+    public boolean processPassword(String oldPassword,
+                                   String newPassword,
+                                   HttpSession session) {
         String email = (String) session.getAttribute("email");
+
+        if(oldPassword.equals(newPassword)) return true;
 
         if(!encoder.matches(oldPassword,
                 repository.findPasswordByEmail(email))){
             return false;
         }
-
-        if(oldPassword.equals(newPassword)) return true;
 
         repository.updatePassword(encoder.encode(newPassword), email);
         return true;

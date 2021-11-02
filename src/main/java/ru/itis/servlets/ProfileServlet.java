@@ -1,9 +1,7 @@
 package ru.itis.servlets;
 
 import ru.itis.models.UserModel;
-import ru.itis.repositories.ProfileRepository;
 import ru.itis.services.ProfileService;
-import ru.itis.services.ProfileServiceImpl;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -31,6 +29,6 @@ public class ProfileServlet extends HttpServlet {
 
         UserModel model = service.getUserModel(req.getSession());
         req.setAttribute("user", model);
-        req.getRequestDispatcher("/views/jsp/profile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/jsp/profile.jsp").forward(req, resp);
     }
 }

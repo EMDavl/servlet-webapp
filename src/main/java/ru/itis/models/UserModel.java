@@ -7,6 +7,7 @@ public class UserModel implements Serializable {
     private String email;
     private int clientsNow;
     private int tasksNow;
+    private int id;
 
     public UserModel(){
     }
@@ -16,6 +17,14 @@ public class UserModel implements Serializable {
         this.email = email;
         this.clientsNow = clientsNow;
         this.tasksNow = tasksNow;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFullName() {

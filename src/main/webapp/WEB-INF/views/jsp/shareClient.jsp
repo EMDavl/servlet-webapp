@@ -13,7 +13,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="<c:url value="/views/css/styles.css"/>">
-    <title>Clients</title>
+    <title>Share Client!</title>
 </head>
 <body>
 <header>
@@ -26,17 +26,23 @@
         </div>
     </div>
 </header>
+
 <main>
     <div class="wrapper">
-        <div class = 'clients_blocks'>
-            <div class="client_block">
-                <a href="#" class="client_link">
-                    <p class="client_block--name">Name</p>
-                    <p class="client_block--number">Number</p>
-                    <p class="client_block--birth_date">Birth date</p>
-                </a>
-            </div>
+        <div class='clients_blocks'>
+            <c:forEach items="${users}" var="user">
+                <div class="client_block">
+                    <label for="${user.id}">
+                        <p class="client_block--name">${user.name} ${user.surname}</p>
+                        <p class="client_block--number">${user.email}</p>
+                    </label>
+                    <input type="checkbox" name="${user.id}" id="${user.id}" form="share_form">
+                </div>
+            </c:forEach>
         </div>
+        <form id="share_form" method="post" action="/shareClient?cid=${clientId}" style="text-align: center">
+            <input type="submit" value="Share!" class="big_submit_btn">
+        </form>
     </div>
 </main>
 </body>

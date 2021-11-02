@@ -21,7 +21,7 @@
     <div class="header_wrapper">
         <div class="row">
             <h1 class="col">Your CRM</h1>
-            <a href="/welcome" class="col">About us</a>
+            <a href="/" class="col">About us</a>
             <a href="/sign-in" class="col">Sign in</a>
         </div>
     </div>

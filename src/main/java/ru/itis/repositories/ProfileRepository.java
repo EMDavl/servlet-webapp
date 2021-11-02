@@ -1,6 +1,9 @@
 package ru.itis.repositories;
 
+import ru.itis.models.SimpleUserModel;
 import ru.itis.models.UserModel;
+
+import java.util.List;
 
 public interface ProfileRepository {
 
@@ -11,4 +14,6 @@ public interface ProfileRepository {
     void updateEmail(String newEmail, String oldEmail);
     int findIdByEmail(String email);
     void updatePassword(String encode, String email);
+
+    List<SimpleUserModel> findAllExceptAlreadyAddedToClient(int cid);
 }

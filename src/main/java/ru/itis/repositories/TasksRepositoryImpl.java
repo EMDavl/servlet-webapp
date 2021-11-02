@@ -27,13 +27,10 @@ public class TasksRepositoryImpl implements TasksRepository {
 
     //language = SQL
     private String SQL_CREATE_TASK =
-            "INSERT INTO tasks(task_name, description, date_time, creation_time) VALUES (?, ?, ?, ?)";
+            "INSERT INTO tasks(task_name, description, date_time, creation_time) VALUES (?, ?, ?, ?) RETURNING id";
 
     private String SQL_CONNECT_USER_CREATOR_WITH_TASK =
-            "INSERT INTO users_tasks(id_u, id_t, u_status) VALUES (?, ?, 'creator')";
-
-    private String SQL_GET_TASK_ID_BY_CREATION_TIME =
-            "SELECT id FROM tasks WHERE creation_time=?";
+            "INSERT INTO users_tasks(id_u, id_t, status) VALUES (?, ?, 'creator')";
 
     //language=SQL
     private String SQL_REMOVE_OUTDATED_TASKS =
@@ -66,8 +63,8 @@ public class TasksRepositoryImpl implements TasksRepository {
     @Override
     public void addTask(String taskName, String desc, Timestamp timestamp, int id) {
         Timestamp creationTime = Timestamp.valueOf(LocalDateTime.now());
-        createTask(taskName, desc, timestamp, creationTime);
-        connectWithUser(getTaskId(creationTime), id);
+        int id_t = createTask(taskName, desc, timestamp, creationTime);
+        connectWithUser(id_t, id);
     }
 
     @Override
@@ -104,34 +101,26 @@ public class TasksRepositoryImpl implements TasksRepository {
         }
     }
 
-    private void createTask(String taskName,
+    private int createTask(String taskName,
                             String desc,
                             Timestamp timestamp,
                             Timestamp creationTime) {
+
+        int taskId = -1;
         try {
             PreparedStatement statement = connection.prepareStatement(SQL_CREATE_TASK);
             statement.setString(1, taskName);
             statement.setString(2, desc);
             statement.setTimestamp(3, timestamp);
             statement.setTimestamp(4, creationTime);
-            statement.execute();
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+
+            taskId = resultSet.getInt("id");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    private int getTaskId(Timestamp creationTime) {
-        try{
-            PreparedStatement statement = connection.prepareStatement(SQL_GET_TASK_ID_BY_CREATION_TIME);
-            statement.setTimestamp(1, creationTime);
-
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return resultSet.getInt("id");
-        }catch (SQLException e) {
-            e.printStackTrace();
-            return -1;
-        }
+        return taskId;
     }
 
     private TaskModel proceedResultSet(ResultSet resultSet){
@@ -140,7 +129,6 @@ public class TasksRepositoryImpl implements TasksRepository {
             model.setTaskName(resultSet.getString("task_name"));
             model.setDescription(resultSet.getString("description"));
             model.setDateTime(resultSet.getTimestamp("date_time").toLocalDateTime());
-            model.setMembersCount(resultSet.getInt("members"));
         } catch (SQLException e) {
             e.printStackTrace();
         }

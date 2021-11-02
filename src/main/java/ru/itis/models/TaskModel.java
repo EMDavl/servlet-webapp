@@ -7,7 +7,6 @@ public class TaskModel {
     private String taskName;
     private String description;
     private LocalDateTime dateTime;
-    private int membersCount;
 
 
 
@@ -21,10 +20,6 @@ public class TaskModel {
 
     public LocalDateTime getDateTime() {
         return dateTime;
-    }
-
-    public int getMembersCount() {
-        return membersCount;
     }
 
     public String getFormattedDateTime(){
@@ -43,7 +38,4 @@ public class TaskModel {
         this.dateTime = dateTime;
     }
 
-    public void setMembersCount(int membersCount) {
-        this.membersCount = membersCount;
-    }
 }

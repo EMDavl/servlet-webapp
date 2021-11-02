@@ -1,9 +1,6 @@
 package ru.itis.servlets;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-import ru.itis.repositories.ProfileRepository;
 import ru.itis.services.ProfileEditService;
-import ru.itis.services.ProfileEditServiceImpl;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -28,6 +25,9 @@ public class EditProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
+        String userEmail = (String) req.getSession().getAttribute("email");
+
+        req.setAttribute("email", userEmail);
         req.getRequestDispatcher("/views/jsp/edit_profile.jsp").forward(req, resp);
     }
 
@@ -41,18 +41,20 @@ public class EditProfileServlet extends HttpServlet {
         boolean emailErr = false;
         boolean passwordErr = false;
 
-        if (!profileService.editEmail(newEmail, req.getSession())) {
+        if (!profileService.processEmail(newEmail, req.getSession())) {
             req.setAttribute("emailError", true);
             emailErr = true;
         }
 
-        if (!profileService.editPassword(oldPass, newPass, req.getSession())) {
+        if (!profileService.processPassword(oldPass, newPass, req.getSession())) {
             req.setAttribute("passwordError", true);
             passwordErr = true;
         }
 
         if (emailErr || passwordErr) {
-            req.getRequestDispatcher("/views/jsp/edit_profile.jsp").forward(req, resp);
+            req.setAttribute("emailErr", emailErr);
+            req.setAttribute("passwordErr", passwordErr);
+            req.getRequestDispatcher("/WEB-INF/views/jsp/edit_profile.jsp").forward(req, resp);
         }
 
         resp.sendRedirect("/profile");

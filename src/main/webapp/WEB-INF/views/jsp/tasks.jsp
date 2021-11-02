@@ -37,8 +37,6 @@
                     <span class="task_header">${task.taskName}</span>
 
                     <p class="task_description">${task.description}</p>
-
-                    <div class="task_members">Members: ${task.membersCount}</div>
                     <div class="task_date">Date and time: ${task.getFormattedDateTime()}</div>
                 </div>
             </c:forEach>

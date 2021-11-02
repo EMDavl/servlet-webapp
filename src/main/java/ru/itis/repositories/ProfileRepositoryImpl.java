@@ -1,11 +1,14 @@
 package ru.itis.repositories;
 
+import ru.itis.models.SimpleUserModel;
 import ru.itis.models.UserModel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileRepositoryImpl implements ProfileRepository {
     private Connection connection;
@@ -33,6 +36,26 @@ public class ProfileRepositoryImpl implements ProfileRepository {
     //language = SQL
     private String SQL_UPDATE_EMAIL =
             "UPDATE users SET email=? WHERE email=?";
+
+    //language = SQL
+    private String SQL_FIND_ALL_EXCEPT_ALREADY_ADDED =
+            "SELECT \n" +
+                    "       id,\n" +
+                    "       email,\n" +
+                    "       name,\n" +
+                    "       surname \n" +
+                    "FROM \n" +
+                    "     users \n" +
+                    "WHERE \n" +
+                    "      id \n" +
+                    "          NOT IN \n" +
+                    "      (SELECT \n" +
+                    "              id \n" +
+                    "      FROM \n" +
+                    "           users \n" +
+                    "               JOIN users_clients uc \n" +
+                    "                   on users.id = uc.id_u \n" +
+                    "      WHERE id_c = ?)";
 
     //language = SQL
     private String SQL_FIND_ID_BY_EMAIL =
@@ -166,6 +189,29 @@ public class ProfileRepositoryImpl implements ProfileRepository {
             statement.execute();
         }catch (SQLException e){
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    public List<SimpleUserModel> findAllExceptAlreadyAddedToClient(int cid) {
+        try{
+            PreparedStatement statement = connection.prepareStatement(SQL_FIND_ALL_EXCEPT_ALREADY_ADDED);
+            statement.setInt(1, cid);
+            ResultSet resultSet = statement.executeQuery();
+            List<SimpleUserModel> users = new ArrayList<>();
+
+            while(resultSet.next()){
+                SimpleUserModel model = new SimpleUserModel();
+                model.setEmail(resultSet.getString("email"));
+                model.setName(resultSet.getString("name"));
+                model.setSurname(resultSet.getString("surname"));
+                model.setId(resultSet.getInt("id"));
+                users.add(model);
+            }
+
+            return users;
+        }catch (SQLException e){
+            throw new IllegalArgumentException(e);
         }
     }
 
